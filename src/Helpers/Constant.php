@@ -22,10 +22,8 @@ class Constant
     const API_ENDPOINTS = [
         'oauth' => Constant::API_VERSION . '/oauth/token',
         'create_order' => Constant::API_VERSION . '/order/create',
+        'payment_plugin_order' => Constant::API_VERSION . '/payment-plugin/create-order',
         'order_status' => Constant::API_VERSION . '/order/status',
-        'manual_order_status_update' => Constant::API_VERSION . '/order/update-status',
-        'verify_client' => Constant::API_VERSION . '/sso/verify-client',
-        'customer_profile' => Constant::API_VERSION . '/sso/customer/profile',
     ];
 
     const OrderStatus = [

@@ -39,10 +39,10 @@ class CreateOrderController extends Controller
                 return ApiResponseHandler::failure($orderResponse['message'],$orderResponse['exception']);
             }else{
                 $response = $orderResponse['body'];
-                return ApiResponseHandler::success($response, trans('bSecure::messages.order.success'));
+                return ApiResponseHandler::success($response, trans('bSecurePayments::messages.order.success'));
             }
         } catch (\Exception $e) {
-            return ApiResponseHandler::failure(trans('bSecure::messages.order.failure'), $e->getTraceAsString());
+            return ApiResponseHandler::failure(trans('bSecurePayments::messages.order.failure'), $e->getTraceAsString());
         }
     }
 

@@ -11,9 +11,9 @@ class ClientApp extends Model
     {
         try {
             if (empty($merchantClientId)) {
-                return ['client_id' => '', 'error' => true, 'message' => trans('bSecure::messages.client.id.invalid')];
+                return ['client_id' => '', 'error' => true, 'message' => trans('bSecurePayments::messages.client.id.invalid')];
             } else if (empty($merchantClientSecret)) {
-                return ['client_id' => '', 'error' => true, 'message' => trans('bSecure::messages.client.secret.invalid')];
+                return ['client_id' => '', 'error' => true, 'message' => trans('bSecurePayments::messages.client.secret.invalid')];
             } else {
                 return [
                     'client_id' => $merchantClientId,

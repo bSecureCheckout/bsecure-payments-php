@@ -34,10 +34,10 @@ class IOPNController extends Controller
             }else{
                 $response = $orderResponse['body'];
 
-                return ApiResponseHandler::success($response, trans('bSecure::messages.order.status.success'));
+                return ApiResponseHandler::success($response, trans('bSecurePayments::messages.order.status.success'));
             }
         } catch (\Exception $e) {
-            return ApiResponseHandler::failure(trans('bSecure::messages.order.status.failure'), $e->getTraceAsString());
+            return ApiResponseHandler::failure(trans('bSecurePayments::messages.order.status.failure'), $e->getTraceAsString());
         }
     }
 }

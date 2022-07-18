@@ -73,16 +73,38 @@ class Helper
 
         if (isset($result['status']) && $result['status'] == Constant::HTTP_RESPONSE_STATUSES['success']) {
 
-            $merchantEnvironmentCheck = config('bSecure.environment') ?? 'sandbox';
+            $merchantEnvironmentCheck = config('bSecure.integration_type') ?? 'sandbox';
 
             if ($merchantEnvironmentCheck == $result['body']['environment']) {
                 $accessToken = isset($result['body']['access_token']) ? $result['body']['access_token'] : null;
                 return ['client_id' => '', 'error' => false, 'accessToken' => $accessToken];
             } else {
-                return ['client_id' => '', 'error' => true, 'message' => trans('bSecure::messages.client.environment.invalid')];
+                return ['client_id' => '', 'error' => true, 'message' => trans('bSecurePayments::messages.client.environment.invalid')];
             }
         }
     }
+
+    /**
+     * Author: Sara Hasan
+     * Date: 10-November-2020
+     */
+    static function createPaymentPluginOrder($orderPayload)
+    {
+        $method = 'POST';
+
+        $url = Constant::AUTH_SERVER_URL . Constant::API_ENDPOINTS['payment_plugin_order'];
+        $headers = [];
+
+        $result = Helper::apiRequest($method, $url, [], $orderPayload, $headers, 'form_params');
+
+        if (isset($result['status']) && $result['status'] == Constant::HTTP_RESPONSE_STATUSES['success']) {
+            $response = ['error' => false, 'body' => $result['body']];
+        } else {
+            $response = ['error' => true, 'body' => $result];
+        }
+        return $response;
+    }
+
 
 
     /**
@@ -131,105 +153,7 @@ class Helper
     }
 
 
-    /**
-     * Author: Sara Hasan
-     * Date: 10-November-2020
-     */
-    static function manualOrderStatusUpdate($merchantAccessToken, $payload)
-    {
-        $method = 'POST';
 
-        $url = Constant::AUTH_SERVER_URL . Constant::API_ENDPOINTS['manual_order_status_update'];
-
-        $headers = ['Authorization' => 'Bearer ' . $merchantAccessToken];
-
-        $result = Helper::apiRequest($method, $url, [], $payload, $headers, 'form_params');
-
-        if (isset($result['status']) && $result['status'] == Constant::HTTP_RESPONSE_STATUSES['success']) {
-            $response = ['error' => false, 'body' => $result['body']];
-        } else {
-            $response = ['error' => true, 'body' => $result];
-        }
-        return $response;
-    }
-
-    /**
-     * Author: Sara Hasan
-     * Date: 26-November-2020
-     */
-    public static function verifyClient($ssoPayload)
-    {
-        try {
-            $client_response = null;
-
-            $http = new Client();
-            $authUrl = Constant::AUTH_SERVER_URL . Constant::API_ENDPOINTS['verify_client'];
-
-            $response = $http->post($authUrl, [
-                'form_params' => $ssoPayload
-            ]);
-
-            $result = json_decode((string)$response->getBody("access_token"), true);
-
-            if (isset($result['status']) && $result['status'] == Constant::HTTP_RESPONSE_STATUSES['success']) {
-                $response = ['error' => false, 'body' => $result['body']];
-            } else {
-                $response = ['error' => true, 'body' => $result];
-            }
-            return $response;
-        } catch (Exception $e) {
-            return ['error' => true, 'message' => trans('bSecure::messages.sso_sco.failure'), 'exception' => $e->getTraceAsString()];
-        }
-    }
-
-
-    /**
-     * Author: Sara Hasan
-     * Date: 26-November-2020
-     */
-    public static function customerProfile($ssoCustomerProfile)
-    {
-        $merchantToken = Merchant::getMerchantAccessToken();
-
-        if ($merchantToken['error']) {
-            return ['error' => true, 'message' => $merchantToken['message']];
-        } else {
-            $merchantAccessToken = $merchantToken['body'];
-            // Call Create Order API
-            $response = Helper::getCustomerProfile($merchantAccessToken, $ssoCustomerProfile);
-
-            if ($response['error']) {
-                return ['error' => true, 'message' => $response['body']['message']];
-            } else {
-                return $response;
-            }
-        }
-
-    }
-
-
-    /**
-     * Author: Sara Hasan
-     * Date: 26-November-2020
-     */
-    public static function getCustomerProfile($merchantAccessToken, $ssoCustomerProfile)
-    {
-        $method = 'POST';
-
-        $url = Constant::AUTH_SERVER_URL . Constant::API_ENDPOINTS['customer_profile'];
-
-        $headers = ['Authorization' => 'Bearer ' . $merchantAccessToken];
-
-        $result = Helper::apiRequest($method, $url, [], $ssoCustomerProfile, $headers, 'form_params');
-
-        if (isset($result['status']) && $result['status'] == Constant::HTTP_RESPONSE_STATUSES['success']) {
-            $response = ['error' => false, 'body' => $result['body']];
-        } else {
-            $response = ['error' => true, 'body' => $result];
-        }
-        return $response;
-
-    }
 
 }
 

@@ -14,21 +14,15 @@ class BsecurePayments extends Facade
 {
 
     private $orderPayload = [
-        'order_id' => null,
-        'client_id' => null,
-        'merchant_id' => null,
-        'store_slug' => null,
-        'integration_type' => null,
-        'currency' => null,
-        'transaction_dt' => null,
-        'sub_total_amt' => null,
-        'discount_amt' => null,
-        'total_amt' => null,
+        'plugin_version' => null,
         'redirect_url' => null,
+        'hash' => null,
+        'merchant_id' => null,
+        'store_id' => null,
         'customer' => null,
-        'address' => null,
+        'customer_address' => null,
+        'order' => null,
     ];
-
 
     /*
      *  CREATE ORDER: Set Order Id
@@ -44,10 +38,6 @@ class BsecurePayments extends Facade
             $validator = new Validator;
             $validation = $validator->make($details, [
                 'order_id' => 'required',
-                'client_id' => 'required',
-                'merchant_id' => 'required',
-                'store_slug' => 'required',
-                'integration_type' => 'required|boolean',
                 'transaction_dt' => 'required',
                 'sub_total_amt' => 'required',
                 'discount_amt' => 'required',
@@ -62,17 +52,20 @@ class BsecurePayments extends Facade
                 return ApiResponseHandler::validationError($validation->errors());
             }
 
-            $this->orderPayload['order_id'] = $details['transaction_id'];
-            $this->orderPayload['client_id'] = $details['client_id'];
-            $this->orderPayload['merchant_id'] = $details['merchant_id'];
-            $this->orderPayload['store_slug'] = $details['store_slug'];
-            $this->orderPayload['integration_type'] = $details['integration_type'];
-            $this->orderPayload['currency'] = 'PKR';
-            $this->orderPayload['transaction_dt'] = $details['transaction_dt'];
-            $this->orderPayload['sub_total_amt'] = $details['sub_total_amt'];
-            $this->orderPayload['discount_amt'] = $details['discount_amt'];
-            $this->orderPayload['total_amt'] = $details['total_amt'];
+            $this->orderPayload['order'] = [
+                "order_id" => $details['order_id'],
+                "currency" => 'PKR',
+                "sub_total_amount" => $details['sub_total_amt'],
+                "discount_amount" => $details['discount_amt'],
+                "total_amount" => $details['total_amt']
+            ];
+            $this->orderPayload['plugin_version'] = '';
             $this->orderPayload['redirect_url'] = $details['redirect_url'];
+            $this->orderPayload['hash'] = 'hash';
+            $this->orderPayload['merchant_id'] = config('bSecurePayments.store_id');
+            $this->orderPayload['store_id'] = config('bSecurePayments.store_id');
+            $this->orderPayload['hash'] = 'hash';
+
             return $this->orderPayload;
             //code...
         } catch (\Throwable $th) {
@@ -147,7 +140,7 @@ class BsecurePayments extends Facade
 
             $order = new CreateOrderController();
             $customer = $order->_setCustomer($customerData);
-            $this->orderPayload['address'] = $customer;
+            $this->orderPayload['customer_address'] = $customer;
             return $this->orderPayload;
             //code...
         } catch (\Throwable $th) {
@@ -165,30 +158,6 @@ class BsecurePayments extends Facade
             if(empty($this->orderPayload))
             {
                 return ApiResponseHandler::validationError("Transaction data is required");
-            }
-
-            $validator = new Validator;
-            $validation = $validator->make($this->orderPayload, [
-                'order_id' => 'required',
-                'client_id' => 'required',
-                'merchant_id' => 'required',
-                'store_slug' => 'required',
-                'integration_type' => 'required',
-                'currency' => 'required',
-                'transaction_dt' => 'required',
-                'sub_total_amt' => 'required',
-                'discount_amt' => 'required',
-                'total_amt' => 'required',
-                'redirect_url' => 'required',
-                'customer' => 'required',
-                'address' => 'required',
-            ]);
-            // then validate
-            $validation->validate();
-            //Now check validation:
-            if ($validation->fails())
-            {
-                return ApiResponseHandler::validationError($validation->errors());
             }
 
             $order = new CreateOrderController();

@@ -30,11 +30,11 @@ class PaymentServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
 
             $this->publishes([
-                __DIR__ . '/config/config.php' => config_path('bSecure.php'),
+                __DIR__ . '/config/config.php' => config_path('bSecurePayments.php'),
             ], 'config');
 
             $this->publishes([
-                __DIR__ . '/resources/lang/en/messages.php' => resource_path('lang/vendor/bSecure/en/messages.php'),
+                __DIR__ . '/resources/lang/en/messages.php' => resource_path('lang/vendor/bSecurePayments/en/messages.php'),
             ]);
         }
     }
