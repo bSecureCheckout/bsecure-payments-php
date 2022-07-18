@@ -154,12 +154,11 @@ class Helper
 
 
     static function calculateSecureHash($payload){
-
         $details = [
             '__00trid__' => $payload['order']['order_id'],
             '__01curr__' => $payload['order']['currency'],
             '__02trdt__' => $payload['txn_reference'],
-            '__03stamt__' => $payload['order']['subtotal_amount'],
+            '__03stamt__' => $payload['order']['sub_total_amount'],
             '__04damt__' => $payload['order']['discount_amount'],
             '__05tamt__' => $payload['order']['total_amount'],
             '__06cname__' => $payload['customer']['name'],
@@ -174,7 +173,7 @@ class Helper
             '__15mid__' => $payload['merchant_id'],
             '__16stid__' => $payload['store_id'],
             '__18ver__' => $payload['plugin_version'],
-            '__19lan__' => $payload['order']['lang'],
+            '__19lan__' => 'EN',
             '__20red__' => $payload['redirect_url'],
             '__21cenv__' => $payload['env_id'],
         ];
