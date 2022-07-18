@@ -88,10 +88,10 @@ class CreateOrderController extends Controller
         if(!empty($customerData))
         {
             $customer = [
-                "country_name" => array_key_exists('country_name',$customerData) ? $customerData['country_name'] : '',
-                "state_name" => array_key_exists('state_name',$customerData) ? $customerData['state_name'] : '',
-                "city_name" => array_key_exists('city_name',$customerData) ? $customerData['city_name'] : '',
-                "area_name" => array_key_exists('area_name',$customerData) ? $customerData['area_name'] : '',
+                "country" => array_key_exists('country',$customerData) ? $customerData['country'] : '',
+                "state" => array_key_exists('state',$customerData) ? $customerData['state'] : '',
+                "city" => array_key_exists('city',$customerData) ? $customerData['city'] : '',
+                "area" => array_key_exists('area',$customerData) ? $customerData['area'] : '',
                 "address" => array_key_exists('address',$customerData) ? $customerData['address'] : '',
             ];
         }

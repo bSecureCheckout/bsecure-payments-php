@@ -66,7 +66,7 @@ class BsecurePayments extends Facade
             $this->orderPayload['redirect_url'] = $details['redirect_url'];
             $this->orderPayload['hash'] = 'hash';
             $this->orderPayload['merchant_id'] = config('bSecurePayments.merchant_id');
-            $this->orderPayload['store_id'] = config('bSecurePayments.store_id');
+            $this->orderPayload['store_id'] = config('bSecurePayments.store_slug');
             $this->orderPayload['hash'] = 'hash';
 
             return $this->orderPayload;
@@ -127,10 +127,10 @@ class BsecurePayments extends Facade
 
             $validator = new Validator;
             $validation = $validator->make($customerData, [
-                'country_name' => 'required',
-                'state_name' => 'required',
-                'city_name' => 'required',
-                'area_name' => 'required',
+                'country' => 'required',
+                'state' => 'required',
+                'city' => 'required',
+                'area' => 'required',
                 'address' => 'required',
             ]);
             // then validate
@@ -142,7 +142,7 @@ class BsecurePayments extends Facade
             }
 
             $order = new CreateOrderController();
-            $customer = $order->_setCustomer($customerData);
+            $customer = $order->_setCustomerAddress($customerData);
             $this->orderPayload['customer_address'] = $customer;
             return $this->orderPayload;
             //code...
