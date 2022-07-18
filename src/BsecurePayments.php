@@ -65,7 +65,7 @@ class BsecurePayments extends Facade
             $this->orderPayload['txn_reference'] = $details['transaction_dt'];
             $this->orderPayload['redirect_url'] = $details['redirect_url'];
             $this->orderPayload['hash'] = 'hash';
-            $this->orderPayload['merchant_id'] = config('bSecurePayments.store_id');
+            $this->orderPayload['merchant_id'] = config('bSecurePayments.merchant_id');
             $this->orderPayload['store_id'] = config('bSecurePayments.store_id');
             $this->orderPayload['hash'] = 'hash';
 
