@@ -1,3 +1,7 @@
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+
+
+[![Latest Stable Version](http://poser.pugx.org/bsecure/bsecure-payments/v)](https://packagist.org/packages/bsecure/bsecure-payments) [![Total Downloads](http://poser.pugx.org/bsecure/bsecure-payments/downloads)](https://packagist.org/packages/bsecure/bsecure-payments) [![Latest Unstable Version](http://poser.pugx.org/bsecure/bsecure-payments/v/unstable)](https://packagist.org/packages/bsecure/bsecure-payments) [![License](http://poser.pugx.org/bsecure/bsecure-payments/license)](https://packagist.org/packages/bsecure/bsecure-payments) [![PHP Version Require](http://poser.pugx.org/bsecure/bsecure-payments/require/php)](https://packagist.org/packages/bsecure/bsecure-payments)
 
 bSecure Payments 
 =========================
@@ -34,7 +38,7 @@ indicates that all the required systems have been configured correctly and the m
 ### Installation
 You can install the package via **composer**
 
-`` composer require bsecure/bsecure-payments``
+`` composer require bSecure/bsecure-payment-plugin-test``
 
 **Prerequisites** 
 
