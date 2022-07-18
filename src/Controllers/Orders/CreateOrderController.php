@@ -89,7 +89,7 @@ class CreateOrderController extends Controller
         {
             $customer = [
                 "country" => array_key_exists('country',$customerData) ? $customerData['country'] : '',
-                "state" => array_key_exists('state',$customerData) ? $customerData['state'] : '',
+                "province" => array_key_exists('province',$customerData) ? $customerData['province'] : '',
                 "city" => array_key_exists('city',$customerData) ? $customerData['city'] : '',
                 "area" => array_key_exists('area',$customerData) ? $customerData['area'] : '',
                 "address" => array_key_exists('address',$customerData) ? $customerData['address'] : '',

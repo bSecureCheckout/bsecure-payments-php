@@ -61,7 +61,7 @@ class BsecurePayments extends Facade
                 "total_amount" => $details['total_amt']
             ];
             $this->orderPayload['plugin_version'] = Constant::PACKAGE_VERISON;
-            $this->orderPayload['env_id'] = config('bSecurePayments.integration_type') == "sandbox" ? 0 : 1;
+            $this->orderPayload['env_id'] = config('bSecurePayments.integration_type') == "sandbox" ? 2 : 1;
             $this->orderPayload['txn_reference'] = $details['transaction_dt'];
             $this->orderPayload['redirect_url'] = $details['redirect_url'];
             $this->orderPayload['hash'] = 'hash';
@@ -128,7 +128,7 @@ class BsecurePayments extends Facade
             $validator = new Validator;
             $validation = $validator->make($customerData, [
                 'country' => 'required',
-                'state' => 'required',
+                'province' => 'required',
                 'city' => 'required',
                 'area' => 'required',
                 'address' => 'required',
