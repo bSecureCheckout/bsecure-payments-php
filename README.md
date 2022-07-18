@@ -34,7 +34,7 @@ indicates that all the required systems have been configured correctly and the m
 ### Installation
 You can install the package via **composer**
 
-`` composer require bSecure/bsecure-payments``
+`` composer require bsecure/bsecure-payments``
 
 **Prerequisites** 
 
