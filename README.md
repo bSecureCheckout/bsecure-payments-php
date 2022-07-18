@@ -1,10 +1,3 @@
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/bsecure/bsecure-laravel.svg?style=flat-square)](https://packagist.org/packages/bsecure/bsecure-laravel)
-[![Latest Stable Version](https://poser.pugx.org/bsecure/bsecure-laravel/v)](//packagist.org/packages/bsecure/bsecure-laravel) 
-[![Total Downloads](https://img.shields.io/packagist/dt/bsecure/bsecure-laravel.svg?style=flat-square)](https://packagist.org/packages/bsecure/bsecure-laravel)
-[![License](https://poser.pugx.org/bsecure/bsecure-laravel/license)](//packagist.org/packages/bsecure/bsecure-laravel)
-[![Build Status](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-laravel/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-laravel/build-status/master)
-[![Code Coverage](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-laravel/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-laravel/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-laravel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-laravel/?branch=master)
 
 bSecure Payments 
 =========================
@@ -34,6 +27,9 @@ indicates that all the required systems have been configured correctly and the m
 1. Go to [Builder Portal](https://builder.bsecure.pk/)
 2. [App Integration](https://builder.bsecure.pk/integration-sandbox) >> Sandbox / Live
 3. Copy **Client Id** from App Integration tab and save it in a secure file.
+4. Copy **Client Secret** from App Integration tab and save it in a secure file.
+5. Copy **Store Slug** from App Integration tab and save it in a secure file.
+6. Get **Merchant Id** from [Builder Portal](https://builder.bsecure.pk/)
 
 ### Installation
 You can install the package via **composer**
@@ -51,11 +47,6 @@ You can install the package via **composer**
 ## Usage
 
 ### Configuration
-
-#### **a) Setting up a transaction:**
-
-The bSecure Payment Plugin will receive an HTTP POST request from the merchant website which will contain the merchant authentication
-details along with the transaction details. The Payment Plugin will inquire the required details from the customer and process transaction:
 
 ## bSecure Payments
 
@@ -86,120 +77,47 @@ return [
 ];
 ```
 
-### Examples
-
-#### Create Payment Transaction
+#### **a) Setting up a transaction:**
 
 The bSecure Payment Plugin will receive an HTTP POST request from the merchant website which will contain the merchant authentication
 details along with the transaction details. The Payment Plugin will inquire the required details from the customer and process transaction:
 
-```JavaScript
-bSecurePaymentTransactionParameters.__00trid__ = '';
-bSecurePaymentTransactionParameters.__01curr__ = '';
-bSecurePaymentTransactionParameters.__02trdt__ = '';
-bSecurePaymentTransactionParameters.__03stamt__ = '';
-bSecurePaymentTransactionParameters.__04damt__ = '';
-bSecurePaymentTransactionParameters.__05tamt__ = '';
-bSecurePaymentTransactionParameters.__06cname__ = '';
-bSecurePaymentTransactionParameters.__07ccc__ = '';
-bSecurePaymentTransactionParameters.__08cphn__ = '';
-bSecurePaymentTransactionParameters.__09cemail__ = '';
-bSecurePaymentTransactionParameters.__10ccc__ = '';
-bSecurePaymentTransactionParameters.__11cstate__ = '';
-bSecurePaymentTransactionParameters.__12ccity__ = '';
-bSecurePaymentTransactionParameters.__13carea__ = '';
-bSecurePaymentTransactionParameters.__14cfadd__ = '';
-bSecurePaymentTransactionParameters.__15mid__ = '';
-bSecurePaymentTransactionParameters.__16stid__ = '';
-bSecurePaymentTransactionParameters.__17seh__ = '';
-bSecurePaymentTransactionParameters.__18ver__ = '';
-bSecurePaymentTransactionParameters.__19lan__ = '';
-bSecurePaymentTransactionParameters.__20red__ = '';
-bSecurePaymentTransactionParameters.__21cenv__ = '';
+##### Transaction Details
+```Php
+[
+    'order_id' => '',
+    'transaction_dt' => Carbon::now()->toString(),
+    'sub_total_amt' => '',
+    'discount_amt' => '',
+    'total_amt' => '',
+    'redirect_url' => '',
+],
 ```
 
-#### Glossary
+##### Customer Details
+```Php
+[
+    'name' => '',
+    'country_code' => '',
+    'phone_number' => '',
+    'email' => '',
+],
+```
 
-| Key             | Property                    | Type         | Default            | Description        |
-| :---------:     | :--------                   | :----------- | :--------          | :----------------  |
-|  `__00trid__`   | Order id                    | string       | required           | A unique value created by the merchant to identify the transaction.  |
-|  `__01curr__`   | currency                    | string       | 'PKR'              | Currency of Transaction amount. It has a fixed value of **_PKR_**      |   
-|  `__02trdt__`   | Transaction date time       | string       | required           |  Merchant provided date and time of transaction. The format of date time should be _yyyyMMddHHmmss_. |
-|  `__03stamt__`  | Subtotal amount             | string       | required           | The transaction subtotal amount amount.      |
-|  `__04damt__`   | Discount amount             | string       | required           | The transaction discount amount.      |
-|  `__05tamt__`   | Total amount                | string       | required           | The transaction total amount.      |
-|  `__06cname__`  | Customer name               | optional       | required         | The name of transaction customer      |
-|  `__07ccc__`    | Customer country code       | string       | required           | The country code of transaction customer      |
-|  `__08cphn__`   | Customer phone number       | string       | required           | The phone number of transaction customer      |
-|  `__09cemail__` | Customer email address      | string       | optional           | The email address of transaction customer      |
-|  `__10ccc__`    | Customer country name       | string       | required           | The country name of transaction customer. It has a fixed value of **_PK_**      |
-|  `__11cstate__` | Customer state name         | string       | required           | The state name of transaction customer      |
-|  `__12ccity__`  | Customer city name          | string       | required           | The city name of transaction customer      |
-|  `__13carea__`  | Customer area name          | string       | required           | The area name of transaction customer      |
-|  `__14cfadd__`  | Customer formatted address  | string       | required           | The formatted address of transaction customer      |
-|  `__15mid__`    | Merchant id                 | string       | required           | Unique Id assigned to merchant by **bSecure Builder Portal**.      |
-|  `__16stid__`   | Store slug                  | string       | required           | Unique Slug assigned to each store by **bSecure Builder Portal**.      |
-|  `__17seh__`    | Client id                   | string       | required           | Used to allow the plugin .|
-|  `__19lan__`    | Order Lang                  | string       | EN                 | Language of Transaction. It has a fixed value of **EN**      |
-|  `__20red__`    | Redirect url                | string       | required           | The URL where merchant wants the transaction results to be shown. Once the transaction has been processed, response details will be sent over to the merchant on this URL using an HTTP POST Request.   |
-|  `__21cenv__`   | Integration type            | string       | required | The transaction integration type 1: Live 2: Sandbox
+##### Customer Address Details
+```Php
+[
+    'country' => '',
+    'province' => '',
+    'city' => '',
+    'area' => '',
+    'address' => '',
+],
+```
 
+### Examples
 
-#### **b) Calculating Secure hash:**
-
-Secure Hash is used to detect whether a transaction request and response has been tampered with. The **Client Id** generated for merchant at its [App Integration](https://builder.bsecure.pk/integration-sandbox) Tab is added to the transaction message and then an SHA256 algorithm is applied to generate a secure
-hash. The secure hash is then sent to the receiving entity with the
-transaction message. Because the receiving entity is the only other
-entity apart from transaction initiator that knows the shared secret it
-recreates the same secure hash and matches it with the one in the
-request message. If the secure hash matches, the receiving entity
-continues processing the transaction. If it doesn’t match, it assumes that
-the transaction request has been tampered with and will stop processing
-the transaction and send back an error message. This is a security feature
-to secure the transaction and is recommended.\
-The pp_SecureHash field is used for the SHA256 secure hash of initiator’s
-shared secret and the transaction request. The secure hash value is the
-Hex encoded SHA256 output of the transaction request or response
-fields. The order that the fields are hashed in are:
-
-1. The Shared Secret (shared between the PG and a merchant), the
-system generated value, is always first.
-2. Then all transaction request fields are concatenated to the Shared
-Secret in alphabetical order of the field name. The sort should be in
-ascending order of the ASCII value of each field string. If one string
-is an exact substring of another, the smaller string should be before
-the longer string. For example, Card should come before CardNum.
-3. Fields must not have any spaces or separators between them and must not
-include any null terminating characters.\
-``
-For example, if the Shared
-Secret is 0F5DD14AE2E38C7EBD8814D29CF6F6F0, and the
-transaction request includes the following fields:
-``
-
-     | Parameter                | Sample Values   |
-     | :---------:              | :--------:      |
-     |pp_MerchantID             | 1421            |
-     | pp_OrderInfo             | A48cvE28        |   
-     | pp_Amount                | 2995        |   
-
-     In ascending alphabetical order the transaction request fields inputted
-     to the SHA256 hash would be:
-     ``0F5DD14AE2E38C7EBD8814D29CF6F6F02995MER123A48cvE28``\
-     Example of a Secure Hash Calculation
-     0F5DD14AE2E38C7EBD8814D29CF6F6F02995MER123A48cvE28
-     Merchant should also ensure that:
-     1. UTF-8 encoding should be used to convert the input from a printable
-     string to a byte array. Note that 7-bit ASCII encoding is unchanged
-     for UTF-8.
-     2. The hash output must be hex-encoded.
-
-``
-Note: Inorder to calculate secure hash we are using libraries named [CryptoJS](https://www.npmjs.com/package/crypto-js)
-``
-
-
-#### Create Order
+#### Create Transaction
 ```php
 use bSecure\Payments\BsecurePayments;
 ```
@@ -207,10 +125,11 @@ use bSecure\Payments\BsecurePayments;
 ```php
 $order = new BsecurePayments();
 
-$order->setTransactionDetails($orderId);
+$order->setTransactionDetails($transactionDetails);
 $order->setCustomer($customer);
+$order->setCustomerAddress($customerAddress);
 
-$result =  $order->createOrder();
+return $order->createOrder();
 return $result;
 ```
 
@@ -230,12 +149,14 @@ array (
 if(!empty($result['checkout_url']))
 return redirect($result['checkout_url']); 
 ```
->If you have Android or IOS SDK then initialize your sdk and provide order_reference to it
+>If you have Android or IOS SDK then initialize your native app's webview with 'checkout_url' and provide order_reference to it for url matching
 ```
 if(!empty($result['order_reference']))
 return $result['order_reference']; 
 ```
-When order is created successfully on bSecure, you will be redirected to bSecure SDK or bSecure checkout app where you will process your checkout.
+
+Once transaction is created you will be able to process your checkout.
+
 
 
 #### Callback on Order Placement

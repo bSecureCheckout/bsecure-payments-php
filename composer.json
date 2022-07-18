@@ -1,6 +1,6 @@
 {
-  "name": "sarahasan/bsecure-payment-plugin-test",
-  "description": "bSecure Payment Plugin is a JavaScript library that allows you to securely process your payments. This plugin instantly creates a form that adheres to PCI, HIPAA, GDPR, or CCPA security requirements.",
+  "name": "bs/bsecure-payment-plugin-test",
+  "description": "bSecure Payment Plugin is a Php library that allows you to securely process your payments. This plugin instantly creates a form that adheres to PCI, HIPAA, GDPR, or CCPA security requirements.",
   "type": "library",
   "keywords": [
     "payments",
