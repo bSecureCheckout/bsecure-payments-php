@@ -67,7 +67,6 @@ class BsecurePayments extends Facade
             $this->orderPayload['redirect_url'] = $details['redirect_url'];
             $this->orderPayload['merchant_id'] = config('bSecurePayments.merchant_id');
             $this->orderPayload['store_id'] = config('bSecurePayments.store_slug');
-            $this->orderPayload['hash'] = Helper::calculateSecureHash($this->orderPayload);
 
             return $this->orderPayload;
             //code...
@@ -164,6 +163,7 @@ class BsecurePayments extends Facade
             }
 
             $order = new CreateOrderController();
+            $this->orderPayload['hash'] = Helper::calculateSecureHash($this->orderPayload);
             $result = $order->create($this->orderPayload);
             return json_decode($result->getContent(), true);
 //            return $result->getContent();
