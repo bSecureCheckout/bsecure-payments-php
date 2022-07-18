@@ -7,6 +7,7 @@ use bSecure\Payments\Controllers\Orders\IOPNController;
 use bSecure\Payments\Controllers\Orders\OrderStatusUpdateController;
 
 use bSecure\Payments\Helpers\ApiResponseHandler;
+use bSecure\Payments\Helpers\Constant;
 use Illuminate\Support\Facades\Facade;
 use Rakit\Validation\Validator;
 
@@ -59,7 +60,9 @@ class BsecurePayments extends Facade
                 "discount_amount" => $details['discount_amt'],
                 "total_amount" => $details['total_amt']
             ];
-            $this->orderPayload['plugin_version'] = '';
+            $this->orderPayload['plugin_version'] = Constant::PACKAGE_VERISON;
+            $this->orderPayload['env_id'] = config('bSecurePayments.integration_type') == "sandbox" ? 0 : 1;
+            $this->orderPayload['txn_reference'] = $details['transaction_dt'];
             $this->orderPayload['redirect_url'] = $details['redirect_url'];
             $this->orderPayload['hash'] = 'hash';
             $this->orderPayload['merchant_id'] = config('bSecurePayments.store_id');

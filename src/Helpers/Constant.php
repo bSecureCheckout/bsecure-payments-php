@@ -4,6 +4,9 @@ namespace bSecure\Payments\Helpers;
 
 class Constant
 {
+
+    const PACKAGE_VERISON = "1.0.0";
+
     const HTTP_RESPONSE_STATUSES = [
         'success' => 200,
         'failed' => 400,
