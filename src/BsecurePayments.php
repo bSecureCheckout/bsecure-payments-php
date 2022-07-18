@@ -8,6 +8,7 @@ use bSecure\Payments\Controllers\Orders\OrderStatusUpdateController;
 
 use bSecure\Payments\Helpers\ApiResponseHandler;
 use bSecure\Payments\Helpers\Constant;
+use bSecure\Payments\Helpers\Helper;
 use Illuminate\Support\Facades\Facade;
 use Rakit\Validation\Validator;
 
@@ -64,10 +65,9 @@ class BsecurePayments extends Facade
             $this->orderPayload['env_id'] = config('bSecurePayments.integration_type') == "sandbox" ? 2 : 1;
             $this->orderPayload['txn_reference'] = $details['transaction_dt'];
             $this->orderPayload['redirect_url'] = $details['redirect_url'];
-            $this->orderPayload['hash'] = 'hash';
             $this->orderPayload['merchant_id'] = config('bSecurePayments.merchant_id');
             $this->orderPayload['store_id'] = config('bSecurePayments.store_slug');
-            $this->orderPayload['hash'] = 'hash';
+            $this->orderPayload['hash'] = Helper::calculateSecureHash($this->orderPayload);
 
             return $this->orderPayload;
             //code...

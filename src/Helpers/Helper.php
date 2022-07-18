@@ -153,6 +153,46 @@ class Helper
     }
 
 
+    static function calculateSecureHash($payload){
+
+        $details = [
+            '__00trid__' => $payload['order']['order_id'],
+            '__01curr__' => $payload['order']['currency'],
+            '__02trdt__' => $payload['txn_reference'],
+            '__03stamt__' => $payload['order']['subtotal_amount'],
+            '__04damt__' => $payload['order']['discount_amount'],
+            '__05tamt__' => $payload['order']['total_amount'],
+            '__06cname__' => $payload['customer']['name'],
+            '__07ccc__' => $payload['customer']['country_code'],
+            '__08cphn__' => $payload['customer']['phone_number'],
+            '__09cemail__' => $payload['customer']['email'],
+            '__10ccc__' => $payload['customer_address']['country'],
+            '__11cstate__' => $payload['customer_address']['province'],
+            '__12ccity__' => $payload['customer_address']['city'],
+            '__13carea__' => $payload['customer_address']['area'],
+            '__14cfadd__' => $payload['customer_address']['address'],
+            '__15mid__' => $payload['merchant_id'],
+            '__16stid__' => $payload['store_id'],
+            '__18ver__' => $payload['plugin_version'],
+            '__19lan__' => $payload['order']['lang'],
+            '__20red__' => $payload['redirect_url'],
+            '__21cenv__' => $payload['env_id'],
+        ];
+
+        $salt = config('bSecurePayments.client_id');
+        ksort($details);
+        $signature = $salt."&";
+        foreach($details as $key => $value)
+        {
+            $signature .= preg_replace("/\s+/", "", $value);
+            if(next($details)) {
+                $signature .= "&";
+            }
+        }
+        $setSignature = hash_hmac('sha256', $signature, $salt);
+
+        return strtoupper($setSignature);
+    }
 
 
 }
