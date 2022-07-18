@@ -1,7 +1,16 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center">
+  <img src="https://bsecure-dev.s3-eu-west-1.amazonaws.com/dev/react_app/assets/secure_logo.png" width="400px" position="center">
+</p>
 
 
-[![Latest Stable Version](http://poser.pugx.org/bsecure/bsecure-payments/v)](https://packagist.org/packages/bsecure/bsecure-payments) [![Total Downloads](http://poser.pugx.org/bsecure/bsecure-payments/downloads)](https://packagist.org/packages/bsecure/bsecure-payments) [![Latest Unstable Version](http://poser.pugx.org/bsecure/bsecure-payments/v/unstable)](https://packagist.org/packages/bsecure/bsecure-payments) [![License](http://poser.pugx.org/bsecure/bsecure-payments/license)](https://packagist.org/packages/bsecure/bsecure-payments) [![PHP Version Require](http://poser.pugx.org/bsecure/bsecure-payments/require/php)](https://packagist.org/packages/bsecure/bsecure-payments)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/bsecure/bsecure-payments.svg?style=flat-square)](https://packagist.org/packages/bsecure/bsecure-payments)
+[![Latest Stable Version](https://poser.pugx.org/bsecure/bsecure-payments/v)](//packagist.org/packages/bsecure/bsecure-payments) 
+[![Total Downloads](https://img.shields.io/packagist/dt/bSecureCheckout/bsecure-payments-php.svg?style=flat-square)](https://packagist.org/packages/bsecure/bsecure-payments)
+[![License](https://poser.pugx.org/bsecure/bsecure-payments/license)](//packagist.org/packages/bsecure/bsecure-payments)
+[![Build Status](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-payments-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-payments-php/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-payments-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-payments-php/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-payments-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bSecureCheckout/bsecure-payments-php/?branch=master)
+
 
 bSecure Payments 
 =========================
